@@ -1,0 +1,53 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+import joblib
+
+# Load the data
+data = pd.read_csv('customer_data.csv')
+
+# Check the first few rows of the dataset to understand its structure
+print("First few rows of the dataset:")
+print(data.head())
+
+# Data Preprocessing
+
+# Drop any unnecessary columns (you may adjust this based on the dataset's columns)
+# For example, you might not need the customer ID or other non-predictive columns
+data = data.drop(columns=['customerID'])
+
+# Handle categorical variables by converting them into dummy/indicator variables
+data = pd.get_dummies(data, drop_first=True)
+
+# Handle any missing values (Telco dataset typically has no missing values, but it's a good practice)
+data = data.fillna(0)
+
+# Separate features (X) and target variable (y)
+X = data.drop(columns=['Churn_Yes'])  # Drop the target variable (Churn) from the features
+y = data['Churn_Yes']  # Target variable (1 if Churn, 0 if Stay)
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Initialize the RandomForestClassifier
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+
+# Train the model
+model.fit(X_train, y_train)
+
+# Make predictions
+y_pred = model.predict(X_test)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Model Accuracy: {accuracy * 100:.2f}%")
+
+# Save the model using joblib (for future use or deployment)
+joblib.dump(model, 'churn_model.pkl')
+
+# Test the model with a sample prediction
+sample_data = X_test.iloc[0].values.reshape(1, -1)  # Take one sample from the test set
+result = model.predict(sample_data)
+
+print("Sample prediction:", "Churn" if result[0] == 1 else "Stay")
