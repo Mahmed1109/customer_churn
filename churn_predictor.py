@@ -13,14 +13,13 @@ print(data.head())
 
 # Data Preprocessing
 
-# Drop any unnecessary columns (you may adjust this based on the dataset's columns)
-# For example, you might not need the customer ID or other non-predictive columns
+# Drop any unnecessary columns 
 data = data.drop(columns=['customerID'])
 
 # Handle categorical variables by converting them into dummy/indicator variables
 data = pd.get_dummies(data, drop_first=True)
 
-# Handle any missing values (Telco dataset typically has no missing values, but it's a good practice)
+# Handle any missing values 
 data = data.fillna(0)
 
 # Separate features (X) and target variable (y)
