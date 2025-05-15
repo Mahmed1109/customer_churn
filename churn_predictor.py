@@ -22,9 +22,12 @@ data = pd.get_dummies(data, drop_first=True)
 # Handle any missing values 
 data = data.fillna(0)
 
-# Separate features (X) and target variable (y)
-X = data.drop(columns=['Churn_Yes'])  # Drop the target variable (Churn) from the features
-y = data['Churn_Yes']  # Target variable (1 if Churn, 0 if Stay)
+if 'Churn' in data.columns:
+    data = pd.get_dummies(data, columns=['Churn'], drop_first=True)
+    y = data['Churn_Yes']
+    X = data.drop(columns=['Churn_Yes'])
+else:
+    raise ValueError("Expected 'Churn' column not found in data.")
 
 # Split the dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
