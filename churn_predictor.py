@@ -7,7 +7,7 @@ import joblib
 # Load the data
 data = pd.read_csv('customer_data.csv')
 
-# Check the first few rows of the dataset to understand its structure
+# Check the first few rows of the dataset 
 print("First few rows of the dataset:")
 print(data.head())
 
@@ -16,7 +16,7 @@ print(data.head())
 # Drop any unnecessary columns 
 data = data.drop(columns=['customerID'])
 
-# Handle categorical variables by converting them into dummy/indicator variables
+# Handle categorical variables by converting them
 data = pd.get_dummies(data, drop_first=True)
 
 # Handle any missing values 
@@ -49,7 +49,9 @@ print(f"Model Accuracy: {accuracy * 100:.2f}%")
 joblib.dump(model, 'churn_model.pkl')
 
 # Test the model with a sample prediction
-sample_data = X_test.iloc[0].values.reshape(1, -1)  # Take one sample from the test set
-result = model.predict(sample_data)
+sample_data = X_test.sample(5, random_state=42)
+results = model.predict(sample_data)
 
-print("Sample prediction:", "Churn" if result[0] == 1 else "Stay")
+# Print predictions
+for i, pred in enumerate(results):
+    print(f"Sample {i+1}: {'Churn' if pred == 1 else 'Stay'}")
