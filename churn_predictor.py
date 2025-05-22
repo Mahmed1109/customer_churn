@@ -11,7 +11,7 @@ data = pd.read_csv('customer_data.csv')
 print("First few rows of the dataset:")
 print(data.head())
 
-# Data Preprocessing
+
 
 # Drop any unnecessary columns 
 data = data.drop(columns=['customerID'])
