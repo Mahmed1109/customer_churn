@@ -11,16 +11,17 @@ data = pd.read_csv('customer_data.csv')
 print("First few rows of the dataset:")
 print(data.head())
 
-
+# Data Preprocessing
 
 # Drop any unnecessary columns 
 data = data.drop(columns=['customerID'])
 
-# Handle categorical variables by converting them
-data = pd.get_dummies(data, drop_first=True)
-
 # Handle any missing values 
 data = data.fillna(0)
+
+# Handle categorical variables by converting them
+
+
 
 if 'Churn' in data.columns:
     data = pd.get_dummies(data, columns=['Churn'], drop_first=True)
@@ -28,6 +29,9 @@ if 'Churn' in data.columns:
     X = data.drop(columns=['Churn_Yes'])
 else:
     raise ValueError("Expected 'Churn' column not found in data.")
+
+# Then encode all other categorical features
+X = pd.get_dummies(X, drop_first=True)
 
 # Split the dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
