@@ -59,3 +59,9 @@ results = model.predict(sample_data)
 # Print predictions
 for i, pred in enumerate(results):
     print(f"Sample {i+1}: {'Churn' if pred == 1 else 'Stay'}")
+
+#user input
+# Ask the user if they want to predict for a new customer
+user_choice = input("\nWould you like to predict churn for a new customer? (yes/no): ").strip().lower()
+if user_choice == 'yes':
+    print("\n--- Please enter customer details ---")
