@@ -65,3 +65,25 @@ for i, pred in enumerate(results):
 user_choice = input("\nWould you like to predict churn for a new customer? (yes/no): ").strip().lower()
 if user_choice == 'yes':
     print("\n--- Please enter customer details ---")
+
+input_data = {
+        'gender': input("Gender (Male/Female): "),
+        'SeniorCitizen': int(input("Senior Citizen? (0 = No, 1 = Yes): ")),
+        'Partner': input("Partner (Yes/No): "),
+        'Dependents': input("Dependents (Yes/No): "),
+        'tenure': int(input("Tenure (months): ")),
+        'PhoneService': input("Phone Service (Yes/No): "),
+        'MultipleLines': input("Multiple Lines (Yes/No/No phone service): "),
+        'InternetService': input("Internet Service (DSL/Fiber optic/No): "),
+        'OnlineSecurity': input("Online Security (Yes/No/No internet service): "),
+        'OnlineBackup': input("Online Backup (Yes/No/No internet service): "),
+        'DeviceProtection': input("Device Protection (Yes/No/No internet service): "),
+        'TechSupport': input("Tech Support (Yes/No/No internet service): "),
+        'StreamingTV': input("Streaming TV (Yes/No/No internet service): "),
+        'StreamingMovies': input("Streaming Movies (Yes/No/No internet service): "),
+        'Contract': input("Contract (Month-to-month/One year/Two year): "),
+        'PaperlessBilling': input("Paperless Billing (Yes/No): "),
+        'PaymentMethod': input("Payment Method (Electronic check/Mailed check/Bank transfer/Credit card): "),
+        'MonthlyCharges': float(input("Monthly Charges: ")),
+        'TotalCharges': float(input("Total Charges: "))
+    }
