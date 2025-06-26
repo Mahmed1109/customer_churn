@@ -87,3 +87,7 @@ input_data = {
         'MonthlyCharges': float(input("Monthly Charges: ")),
         'TotalCharges': float(input("Total Charges: "))
     }
+
+user_df = pd.DataFrame([input_data])
+user_df = pd.get_dummies(user_df, drop_first=True)
+user_df = user_df.reindex(columns=X.columns, fill_value=0)
