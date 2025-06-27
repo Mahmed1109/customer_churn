@@ -63,10 +63,11 @@ for i, pred in enumerate(results):
 #user input
 # Ask the user if they want to predict for a new customer
 user_choice = input("\nWould you like to predict churn for a new customer? (yes/no): ").strip().lower()
+user_choice = input("\nWould you like to predict churn for a new customer? (yes/no): ").strip().lower()
 if user_choice == 'yes':
     print("\n--- Please enter customer details ---")
 
-input_data = {
+    input_data = {
         'gender': input("Gender (Male/Female): "),
         'SeniorCitizen': int(input("Senior Citizen? (0 = No, 1 = Yes): ")),
         'Partner': input("Partner (Yes/No): "),
@@ -88,6 +89,15 @@ input_data = {
         'TotalCharges': float(input("Total Charges: "))
     }
 
-user_df = pd.DataFrame([input_data])
-user_df = pd.get_dummies(user_df, drop_first=True)
-user_df = user_df.reindex(columns=X.columns, fill_value=0)
+    user_df = pd.DataFrame([input_data])
+    user_df = pd.get_dummies(user_df, drop_first=True)
+    user_df = user_df.reindex(columns=X.columns, fill_value=0)
+
+    model = joblib.load('churn_model.pkl')
+    prediction = model.predict(user_df)[0]
+
+    print("\n📢 Prediction Result:")
+    print("👉 The customer will **CHURN**." if prediction == 1 else "✅ The customer will **STAY**.")
+
+else:
+    print("\nNo user input prediction requested.")
