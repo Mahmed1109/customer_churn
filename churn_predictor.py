@@ -4,24 +4,11 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 import joblib
 
-# Load the data
 data = pd.read_csv('customer_data.csv')
-
-# Check the first few rows of the dataset 
-print("First few rows of the dataset:")
-print(data.head())
-
-# Data Preprocessing
-
-# Drop any unnecessary columns 
 data = data.drop(columns=['customerID'])
-
-# Handle any missing values 
+data = data.replace(" ", 0)
+data['TotalCharges'] = pd.to_numeric(data['TotalCharges'], errors='coerce').fillna(0)
 data = data.fillna(0)
-
-# Handle categorical variables by converting them
-
-
 
 if 'Churn' in data.columns:
     data = pd.get_dummies(data, columns=['Churn'], drop_first=True)
